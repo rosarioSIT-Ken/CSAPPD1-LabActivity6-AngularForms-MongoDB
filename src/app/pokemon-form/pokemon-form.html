@@ -1,0 +1,23 @@
+<div class="'container">
+    <h1>Gary Oak's Pokedex</h1>
+
+    <form [formGroup]="pokemonForm" (ngSubmit)="onSubmit()">
+        <input formControlName="name" placeholder="Pokemon Name">
+        <input formControlName="type" placeholder="Type">
+        <input type="number" formControlName="level" placeholder="Level">
+        <input formControlName="nature" placeholder="Nature">
+        <button type="submit" [disabled]="!pokemonForm.valid"> Add to Pokedex </button>
+    </form>
+
+    <h2> Gary's Winning Team</h2>
+    <div class="team">
+        @for (p of pokemonService.pokemonList(); track p._id) {
+            <div class="team">
+                <h3>{{ p.name }} (Lvl {{ p.level }})</h3>
+                <p>{{ p.type }} | {{ p.nature }}</p>
+            </div>
+        } @empty {
+            <p class="empty"> No Pokemon recorded. </p>
+        }
+    </div>
+</div>

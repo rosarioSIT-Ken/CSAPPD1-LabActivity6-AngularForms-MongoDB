@@ -1,0 +1,13 @@
+.container { max-width: 600px; margin: 40px auto; padding: 24px; font-family: Arial, sans-serif; background: #fff8e1; border: 4px solid #2a75bb; border-radius: 16px; }
+h1 { text-align: center; color: #ee1515; }
+h2 { color: #2a75bb; border-bottom: 2px solid #ffcb05; padding-bottom: 6px; }
+form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+input { padding: 10px; font-size: 16px; border: 2px solid #ccc; border-radius: 8px; }
+input:focus { outline: none; border-color: #2a75bb; }
+button { padding: 12px; font-size: 16px; font-weight: bold; color: white; background: #ee1515; border: none; border-radius: 8px; cursor: pointer; }
+button:disabled { background: #999; cursor: not-allowed; }
+.team { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.card { padding: 12px; background: white; border: 2px solid #ffcb05; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+.card h3 { margin: 0 0 6px; color: #2a75bb; }
+.card p { margin: 0; color: #555; }
+.empty { color: #777; font-style: italic; }
