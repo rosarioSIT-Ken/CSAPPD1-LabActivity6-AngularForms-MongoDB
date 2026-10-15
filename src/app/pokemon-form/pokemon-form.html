@@ -1,23 +1,66 @@
-<div class="'container">
-    <h1>Gary Oak's Pokedex</h1>
+<div class="pokedex">
+  <header class="pokedex-top">
+    <span class="lens"></span>
+    <span class="dot red"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+    <h1>Kenz Pokédex</h1>
+  </header>
 
-    <form [formGroup]="pokemonForm" (ngSubmit)="onSubmit()">
-        <input formControlName="name" placeholder="Pokemon Name">
-        <input formControlName="type" placeholder="Type">
-        <input type="number" formControlName="level" placeholder="Level">
-        <input formControlName="nature" placeholder="Nature">
-        <button type="submit" [disabled]="!pokemonForm.valid"> Add to Pokedex </button>
-    </form>
+  <section class="screen">
+    <h2>{{ editingId() ? 'Update Pokemon' : 'Register Pokemon' }}</h2>
 
-    <h2> Gary's Winning Team</h2>
-    <div class="team">
-        @for (p of pokemonService.pokemonList(); track p._id) {
-            <div class="team">
-                <h3>{{ p.name }} (Lvl {{ p.level }})</h3>
-                <p>{{ p.type }} | {{ p.nature }}</p>
-            </div>
-        } @empty {
-            <p class="empty"> No Pokemon recorded. </p>
+    <form [formGroup]="pokemonForm" (ngSubmit)="onSubmit()" class="pokemon-form">
+      <div class="form-group">
+        <label for="name">Pokemon Name</label>
+        <input id="name" type="text" formControlName="name" placeholder="e.g. Pikachu" />
+      </div>
+
+      <div class="form-group">
+        <label for="type">Type</label>
+        <input id="type" type="text" formControlName="type" placeholder="e.g. Electric" />
+      </div>
+
+      <div class="form-group">
+        <label for="level">Level</label>
+        <input id="level" type="number" formControlName="level" />
+      </div>
+
+      <div class="form-group">
+        <label for="nature">Nature</label>
+        <input id="nature" type="text" formControlName="nature" placeholder="e.g. Jolly" />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="pokemonForm.invalid" class="btn btn-submit">
+          {{ editingId() ? 'Confirm Update' : 'Catch Pokemon' }}
+        </button>
+
+        @if (editingId()) {
+          <button type="button" (click)="cancelEdit()" class="btn btn-cancel">Cancel</button>
         }
+      </div>
+    </form>
+  </section>
+
+  <section class="team">
+    <h2>Gary's Winning Team</h2>
+    <div class="pokemon-grid">
+      @for (p of pokemonService.pokemonList(); track p._id) {
+        <div class="pokemon-card" [class.editing]="editingId() === p._id">
+          <div class="card-info">
+            <strong>{{ p.name }}</strong>
+            <span class="level">Lvl {{ p.level }}</span>
+            <p>{{ p.type }} | {{ p.nature }}</p>
+          </div>
+          <div class="card-actions">
+            <button (click)="startEdit(p)" class="btn btn-edit">Edit</button>
+            <button (click)="deletePokemon(p._id)" class="btn btn-delete">Release</button>
+          </div>
+        </div>
+      } @empty {
+        <p class="empty">No Pokemon recorded.</p>
+      }
     </div>
+  </section>
 </div>

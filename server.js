@@ -35,3 +35,17 @@ app.post('/api/pokemon', async (req, res) => {
     res.send(pokemon);
     console.log("Added new pokemon", pokemon);
 });
+
+// Delete a pokemon by id
+app.delete('/api/pokemon/:id', async (req, res) => {
+  await Pokemon.findByIdAndDelete(req.params.id);
+  res.status(204).send(); // 204 means successful deletion
+  console.log("Deleted pokemon:", req.params.id);
+});
+
+// Update a pokemon by id
+app.put('/api/pokemon/:id', async (req, res) => {
+  const updatedPokemon = await Pokemon.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.send(updatedPokemon);
+  console.log("Updated pokemon:", updatedPokemon);
+});
